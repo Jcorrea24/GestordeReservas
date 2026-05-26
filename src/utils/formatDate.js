@@ -16,7 +16,9 @@ export function formatearFecha(fechaString) {
     })
 }
 
-// para el input datetime-local necesito el formato correcto sin desvíos de zona horaria
+// NOTA: Esta función soluciona el clásico bug del desfase de zona horaria al editar la fecha.
+// Si usábamos toISOString(), la fecha se convertía a UTC y le restaba/sumaba horas en el input.
+// Al obtener el año, mes, día y horas locales manualmente con getters evitamos este problema.
 export function fechaParaInput(fechaString) {
     if (!fechaString) return ''
     const fecha = new Date(fechaString)

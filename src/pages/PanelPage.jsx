@@ -77,6 +77,8 @@ function PanelPage() {
         try {
             setGuardando(true)
 
+            // Importante: me aseguro de que cantidadPersonas se mande como un número
+            // para evitar problemas con las validaciones de tipo en la API.
             const payload = {
                 ...datosForm,
                 cantidadPersonas: Number(datosForm.cantidadPersonas),
@@ -122,6 +124,8 @@ function PanelPage() {
 
     async function handleFinalizar(reserva) {
         try {
+            // Guardamos el ID de la tarjeta que se está finalizando
+            // para que solo esa tarjeta muestre el estado de carga y deshabilite sus botones
             setCargandoId(reserva.id)
             const actualizada = await actualizarReserva(reserva.id, {
                 ...reserva,
