@@ -16,11 +16,17 @@ export function formatearFecha(fechaString) {
     })
 }
 
-// para el input datetime-local necesito el formato correcto
+// para el input datetime-local necesito el formato correcto sin desvíos de zona horaria
 export function fechaParaInput(fechaString) {
     if (!fechaString) return ''
     const fecha = new Date(fechaString)
     if (isNaN(fecha.getTime())) return ''
-    // slice(0,16) quita los segundos que no necesita el input
-    return fecha.toISOString().slice(0, 16)
+    
+    const year = fecha.getFullYear()
+    const month = String(fecha.getMonth() + 1).padStart(2, '0')
+    const day = String(fecha.getDate()).padStart(2, '0')
+    const hours = String(fecha.getHours()).padStart(2, '0')
+    const minutes = String(fecha.getMinutes()).padStart(2, '0')
+    
+    return `${year}-${month}-${day}T${hours}:${minutes}`
 }
